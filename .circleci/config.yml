@@ -1,0 +1,29 @@
+version: 2.1
+workflows:
+  semgrep:
+    jobs:
+      - semgrep-scan:
+          context:
+            - semgrep
+jobs:
+  semgrep-scan:
+    docker:
+      - image: returntocorp/semgrep
+    steps:
+      - checkout
+      - run:
+          name: "Semgrep scan"
+          command: |
+            export SEMGREP_BASELINE_REF="origin/main"
+            export SEMGREP_COMMIT=$CIRCLE_SHA1
+            export SEMGREP_JOB_URL=$CIRCLE_BUILD_URL
+            echo 'BRANCH'
+            echo $CIRCLE_BRANCH
+            echo 'GITHUB PR ID'
+            echo $CIRCLE_PULL_REQUEST
+            if [ -n "$CIRCLE_PULL_REQUEST" ]; then
+                pr_number=$(echo "$CIRCLE_PULL_REQUEST" | awk -F '/' '{print $NF}' )
+                export SEMGREP_PR_ID=$pr_number
+                git fetch origin "+refs/heads/*:refs/remotes/origin/*"
+                semgrep ci --baseline-commit=$(git merge-base main HEAD) 
+            fi

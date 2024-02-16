@@ -17,9 +17,9 @@ jobs:
             export SEMGREP_BASELINE_REF="origin/main"
             export SEMGREP_COMMIT=$CIRCLE_SHA1
             export SEMGREP_JOB_URL=$CIRCLE_BUILD_URL
-            echo 'BRANCH: $CIRCLE_BRANCH'
-            echo 'GITHUB PR ID: $CIRCLE_PULL_REQUEST'
-            echo 'GITHUB PR ID: ${{ github.event.pull_request.number }}'
+            echo 'BRANCH: {$CIRCLE_BRANCH}'
+            echo 'GITHUB PR ID: ${CIRCLE_PULL_REQUEST}'
+            echo 'GITHUB PR ID: ${github.event.pull_request.number}'
             if [ -n "$CIRCLE_PULL_REQUEST" ]; then
                 pr_number=$(echo "$CIRCLE_PULL_REQUEST" | awk -F '/' '{print $NF}' )
                 export SEMGREP_PR_ID=$pr_number

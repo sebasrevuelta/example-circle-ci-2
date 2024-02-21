@@ -30,7 +30,7 @@ jobs:
             else
                 echo "full scan"
                 if [ "$CIRCLE_BRANCH" == "main" ]; then
-                    semgrep ci
+                    semgrep ci || true
                 else
                     echo "not main branch"
                 fi

@@ -11,7 +11,7 @@ public class IPAddressExample
         string myIP = "123.168.97.54";
 
         //ok: avoid_ip_address_in_the_code
-        hardcodedIpAddress = IPAddress.Parse("192.168.3.1"); 
+        hardcodedIpAddress = IPAddress.Parse("192.168.4.1"); 
 
         print("Sebas")
         print("---")

@@ -21,14 +21,8 @@ jobs:
               export CIRCLE_PULL_REQUEST=""
               echo "CIRCLE_PULL_REQUEST: $CIRCLE_PULL_REQUEST"
               echo "Pull Request Number: $PR_NUMBER"
-              if [ -z "${CIRCLE_PULL_REQUEST+x}" ]; then
-                echo "CIRCLE_PULL_REQUEST is null"
-              elif [ -z "$CIRCLE_PULL_REQUEST" ]; then
-                echo "CIRCLE_PULL_REQUEST is an empty string"
-              else
-                echo "CIRCLE_PULL_REQUEST has a value: $CIRCLE_PULL_REQUEST"
-              fi
-              if [ -n "$CIRCLE_PULL_REQUEST" ]; then
+              if [ -n "$PR_NUMBER" ]; then
+                  echo "Running pull request scan for branch: $CIRCLE_BRANCH"
                   export SEMGREP_BASELINE_REF = "origin/main"
                   echo "Pull Request Number: $PR_NUMBER"
                   export SEMGREP_PR_ID=$PR_NUMBER

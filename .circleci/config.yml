@@ -20,7 +20,13 @@ jobs:
               PR_NUMBER=$(echo "$CIRCLE_PULL_REQUEST" | awk -F '/' '{print $NF}' )
               echo "CIRCLE_PULL_REQUEST: $CIRCLE_PULL_REQUEST"
               echo "Pull Request Number: $PR_NUMBER"
-              
+              if [ -z "${CIRCLE_PULL_REQUEST+x}" ]; then
+                echo "CIRCLE_PULL_REQUEST is null"
+              elif [ -z "$CIRCLE_PULL_REQUEST" ]; then
+                echo "CIRCLE_PULL_REQUEST is an empty string"
+              else
+                echo "CIRCLE_PULL_REQUEST has a value: $CIRCLE_PULL_REQUEST"
+              fi
               if [ -n "$CIRCLE_PULL_REQUEST" ]; then
                   export SEMGREP_BASELINE_REF = "origin/main"
                   echo "Pull Request Number: $PR_NUMBER"

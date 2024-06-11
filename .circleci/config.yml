@@ -11,6 +11,7 @@ jobs:
       - image: returntocorp/semgrep
     steps:
       - checkout
+          fetch-depth: 1
       - run:
           name: "Semgrep scan"
           command: |

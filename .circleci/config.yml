@@ -23,7 +23,7 @@ jobs:
               echo "Pull Request Number: $PR_NUMBER"
               if [ -n "$PR_NUMBER" ]; then
                   echo "Running pull request scan for branch: $CIRCLE_BRANCH"
-                  export SEMGREP_BASELINE_REF = "origin/main"
+                  export SEMGREP_BASELINE_REF="origin/main"
                   echo "Pull Request Number: $PR_NUMBER"
                   export SEMGREP_PR_ID=$PR_NUMBER
                   git fetch origin "+refs/heads/*:refs/remotes/origin/*"

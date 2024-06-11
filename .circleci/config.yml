@@ -18,6 +18,7 @@ jobs:
               export SEMGREP_COMMIT=$CIRCLE_SHA1
               export SEMGREP_JOB_URL=$CIRCLE_BUILD_URL
               PR_NUMBER=$(echo "$CIRCLE_PULL_REQUEST" | awk -F '/' '{print $NF}' )
+              export CIRCLE_PULL_REQUEST=""
               echo "CIRCLE_PULL_REQUEST: $CIRCLE_PULL_REQUEST"
               echo "Pull Request Number: $PR_NUMBER"
               if [ -z "${CIRCLE_PULL_REQUEST+x}" ]; then

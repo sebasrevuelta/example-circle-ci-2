@@ -19,11 +19,11 @@ jobs:
               export SEMGREP_JOB_URL=$CIRCLE_BUILD_URL
               PR_NUMBER=$(echo "$CIRCLE_PULL_REQUEST" | awk -F '/' '{print $NF}' )
               if [ -n "$CIRCLE_PULL_REQUEST" ]; then
-                  echo 'export SEMGREP_BASELINE_REF = "origin/<< pipeline.parameters.master_branch >>"' >> $BASH_ENV
+                  export SEMGREP_BASELINE_REF = "origin/main'
                   echo "Pull Request Number: $PR_NUMBER"
-                  echo 'export SEMGREP_PR_ID=$PR_NUMBER' >> $BASH_ENV
+                  export SEMGREP_PR_ID=$PR_NUMBER
                   git fetch origin "+refs/heads/*:refs/remotes/origin/*"
-                  semgrep ci --baseline-commit=$(git merge-base development HEAD)
+                  semgrep ci --baseline-commit=$(git merge-base main HEAD)
               else
                   if [ "$CIRCLE_BRANCH" == "development" ]; then
                       echo "Running Full scan for branch: $CIRCLE_BRANCH"

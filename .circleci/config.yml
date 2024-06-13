@@ -25,13 +25,14 @@ jobs:
               echo "Running Semgrep scan for circle_branch: $CIRCLE_BRANCH"
               echo "Running Semgrep scan for branch_name: $BRANCH_NAME"
               export SEMGREP_APP_TOKEN=$SEMGREP_APP_TOKEN
-              export SEMGREP_COMMIT=$CIRCLE_SHA1
+              
               export SEMGREP_JOB_URL=$CIRCLE_BUILD_URL
               PR_NUMBER=$(echo "$CIRCLE_PULL_REQUEST" | awk -F '/' '{print $NF}' )
               echo "CIRCLE_PULL_REQUEST: $CIRCLE_PULL_REQUEST"
               echo "Pull Request Number: $PR_NUMBER"
               if [ -n "$PR_NUMBER" ]; then
                   echo "Running pull request scan for branch: $CIRCLE_BRANCH"
+                  export SEMGREP_COMMIT=$CIRCLE_SHA1
                   export SEMGREP_BASELINE_REF="origin/development"
                   echo "Pull Request Number: $PR_NUMBER"
                   export SEMGREP_PR_ID=$PR_NUMBER
@@ -40,7 +41,7 @@ jobs:
               else
                   if [ "$CIRCLE_BRANCH" == "development" ]; then
                       echo "Running Full scan for branch: $CIRCLE_BRANCH"
-                      semgrep ci || true
+                      semgrep ci --debug || true
                   else
                       echo "Skipping full scan for branches different to development"
                   fi

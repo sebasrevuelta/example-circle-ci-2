@@ -5,7 +5,7 @@ jobs:
     docker:
       - image: returntocorp/semgrep
     environment:
-      BRANCH_NAME: 'development'
+      SEMGREP_BASELINE_REF: 'development'
     steps:
       - checkout
       - run:

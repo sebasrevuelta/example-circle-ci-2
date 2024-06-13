@@ -14,6 +14,6 @@ else
         echo "Running Full scan for branch: $CIRCLE_BRANCH"
         semgrep ci || true
     else
-        echo "Skipping full scan for branches different to development"
+        echo "Skipping full scan for branches different to development."
     fi
 fi

@@ -1,27 +1,24 @@
-version: 2.1
-workflows:
-  semgrep:
-    jobs:
-      - semgrep-scan:
-          context:
-            - semgrep
-
+version: 2
 jobs:
   semgrep-scan:
     docker:
       - image: semgrep/semgrep
     environment:
-    # Setting the branch name as an environment variable
-      BRANCH_NAME: << pipeline.git.branch >>
+      BRANCH_NAME: ${CIRCLE_BRANCH}
     steps:
       - checkout
       - run:
           name: Mask Branch Name
           command: |
             echo "Setting branch name..."
-            echo "export BRANCH_NAME=${BRANCH_NAME}" >> $BASH_ENV
+            echo "export BRANCH_NAME=${CIRCLE_BRANCH}" >> $BASH_ENV
       - run:
           name: "Semgrep scan"
           command: |
-              .circleci/base_config/semgrep.sh
-             
+            .circleci/base_config/semgrep.sh
+
+workflows:
+  version: 2
+  semgrep:
+    jobs:
+      - semgrep-scan

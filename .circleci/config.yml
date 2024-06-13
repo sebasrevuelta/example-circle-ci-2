@@ -3,7 +3,7 @@ version: 2
 jobs:
   semgrep-scan:
     docker:
-      - image: semgrep/semgrep
+      - image: returntocorp/semgrep
     environment:
       BRANCH_NAME: ${CIRCLE_BRANCH}
     steps:

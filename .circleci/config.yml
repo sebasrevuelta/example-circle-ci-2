@@ -1,3 +1,4 @@
+
 version: 2
 jobs:
   semgrep-scan:
@@ -8,17 +9,15 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Mask Branch Name
-          command: |
-            echo "Setting branch name..."
-            echo "export BRANCH_NAME=${CIRCLE_BRANCH}" >> $BASH_ENV
+          name: Set script permissions
+          command: chmod +x .circleci/base_config/semgrep.sh
       - run:
           name: "Semgrep scan"
           command: |
-            .circleci/base_config/semgrep.sh
-
+              .circleci/base_config/semgrep.sh
 workflows:
   version: 2
   semgrep:
     jobs:
       - semgrep-scan
+

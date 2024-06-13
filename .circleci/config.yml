@@ -8,12 +8,22 @@ workflows:
 jobs:
   semgrep-scan:
     docker:
-      - image: returntocorp/semgrep
+      - image: semgrep/semgrep
+    environment:
+    # Setting the branch name as an environment variable
+      BRANCH_NAME: << pipeline.git.branch >>
     steps:
       - checkout
       - run:
+          name: Mask Branch Name
+          command: |
+            echo "Setting branch name..."
+            echo "export BRANCH_NAME=${BRANCH_NAME}" >> $BASH_ENV
+      - run:
           name: "Semgrep scan"
           command: |
+              echo "Running Semgrep scan for branch: $CIRCLE_BRANCH"
+              echo "Running Semgrep scan for branch: $BRANCH_NAME"
               export SEMGREP_APP_TOKEN=$SEMGREP_APP_TOKEN
               export SEMGREP_COMMIT=$CIRCLE_SHA1
               export SEMGREP_JOB_URL=$CIRCLE_BUILD_URL

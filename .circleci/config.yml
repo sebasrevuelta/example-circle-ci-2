@@ -1,10 +1,11 @@
-version: 2.1
+version: 2
 workflows:
   semgrep:
     jobs:
       - semgrep-scan:
           context:
             - semgrep
+
 jobs:
   semgrep-scan:
     docker:
@@ -22,26 +23,5 @@ jobs:
       - run:
           name: "Semgrep scan"
           command: |
-              echo "Running Semgrep scan for circle_branch: $CIRCLE_BRANCH"
-              echo "Running Semgrep scan for branch_name: $BRANCH_NAME"
-              export SEMGREP_APP_TOKEN=$SEMGREP_APP_TOKEN
-              export SEMGREP_JOB_URL=$CIRCLE_BUILD_URL
-              PR_NUMBER=$(echo "$CIRCLE_PULL_REQUEST" | awk -F '/' '{print $NF}' )
-              echo "CIRCLE_PULL_REQUEST: $CIRCLE_PULL_REQUEST"
-              echo "Pull Request Number: $PR_NUMBER"
-              if [ -n "$PR_NUMBER" ]; then
-                  echo "Running pull request scan for branch: $CIRCLE_BRANCH"
-                  export SEMGREP_BASELINE_REF="origin/development"
-                  echo "Pull Request Number: $PR_NUMBER"
-                  export SEMGREP_PR_ID=$PR_NUMBER
-                  git fetch origin "+refs/heads/*:refs/remotes/origin/*"
-                  semgrep ci --baseline-commit=$(git merge-base development HEAD)
-              else
-                  if [ "$CIRCLE_BRANCH" == "development" ]; then
-                      echo "Running Full scan for branch: $CIRCLE_BRANCH"
-                      semgrep ci || true
-                  else
-                      echo "Skipping full scan for branches different to development"
-                  fi
-              fi
-
+              .circleci/base_config/semgrep.sh
+             

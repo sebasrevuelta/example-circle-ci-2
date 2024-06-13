@@ -22,17 +22,17 @@ jobs:
               echo "Pull Request Number: $PR_NUMBER"
               if [ -n "$PR_NUMBER" ]; then
                   echo "Running pull request scan for branch: $CIRCLE_BRANCH"
-                  export SEMGREP_BASELINE_REF="origin/main"
+                  export SEMGREP_BASELINE_REF="origin/development"
                   echo "Pull Request Number: $PR_NUMBER"
                   export SEMGREP_PR_ID=$PR_NUMBER
                   git fetch origin "+refs/heads/*:refs/remotes/origin/*"
-                  semgrep ci --baseline-commit=$(git merge-base main HEAD)
+                  semgrep ci --baseline-commit=$(git merge-base development HEAD)
               else
-                  if [ "$CIRCLE_BRANCH" == "main" ]; then
+                  if [ "$CIRCLE_BRANCH" == "development" ]; then
                       echo "Running Full scan for branch: $CIRCLE_BRANCH"
                       semgrep ci || true
                   else
-                      echo "Skipping full scan for branches different to main"
+                      echo "Skipping full scan for branches different to development"
                   fi
               fi
 

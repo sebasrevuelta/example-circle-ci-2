@@ -25,7 +25,6 @@ jobs:
               echo "Running Semgrep scan for circle_branch: $CIRCLE_BRANCH"
               echo "Running Semgrep scan for branch_name: $BRANCH_NAME"
               export SEMGREP_APP_TOKEN=$SEMGREP_APP_TOKEN
-              
               export SEMGREP_JOB_URL=$CIRCLE_BUILD_URL
               PR_NUMBER=$(echo "$CIRCLE_PULL_REQUEST" | awk -F '/' '{print $NF}' )
               echo "CIRCLE_PULL_REQUEST: $CIRCLE_PULL_REQUEST"

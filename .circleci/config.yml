@@ -4,8 +4,6 @@ jobs:
   semgrep-scan:
     docker:
       - image: returntocorp/semgrep
-    environment:
-      SEMGREP_BASELINE_REF: 'development'
     steps:
       - checkout
       - run:

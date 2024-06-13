@@ -22,8 +22,8 @@ jobs:
       - run:
           name: "Semgrep scan"
           command: |
-              echo "Running Semgrep scan for branch: $CIRCLE_BRANCH"
-              echo "Running Semgrep scan for branch: $BRANCH_NAME"
+              echo "Running Semgrep scan for circle_branch: $CIRCLE_BRANCH"
+              echo "Running Semgrep scan for branch_name: $BRANCH_NAME"
               export SEMGREP_APP_TOKEN=$SEMGREP_APP_TOKEN
               export SEMGREP_COMMIT=$CIRCLE_SHA1
               export SEMGREP_JOB_URL=$CIRCLE_BUILD_URL

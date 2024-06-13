@@ -2,8 +2,6 @@
 version: 2
 jobs:
   semgrep-scan:
-    context:
-      - semgrep
     docker:
       - image: semgrep/semgrep
     environment:

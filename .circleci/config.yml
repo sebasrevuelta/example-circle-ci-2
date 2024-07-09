@@ -1,9 +1,7 @@
 version: 2.1
 
-parameters:
-  service:
-    type: string
-    default: "A"
+import:
+  - .circleci/base_config/parameters.yml
     
 jobs:
   semgrep-scan:
@@ -11,6 +9,8 @@ jobs:
       - image: semgrep/semgrep
     parameters:
       service:
+        type: string
+      master_branch:
         type: string
     steps:
       - checkout

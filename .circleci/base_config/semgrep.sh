@@ -5,6 +5,7 @@ echo 'export SEMGREP_JOB_URL=$CIRCLE_BUILD_URL' >> $BASH_ENV
 echo "Service parameter value is << parameters.service >>"
 echo "Service parameter value is << pipeline.parameters.service >>"
 echo "Service parameter value is $SERVICE_PARAM"
+echo "origin/<< pipeline.parameters.master_branch >>"
 
 PR_NUMBER=$(echo "$CIRCLE_PULL_REQUEST" | awk -F '/' '{print $NF}' )
 if [ -n "$PR_NUMBER" ]; then 

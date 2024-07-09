@@ -29,5 +29,6 @@ workflows:
       - semgrep-scan:
           name: semgrep-scan
           service: "B"
+          master_branch: "development"
           context:
             - semgrep

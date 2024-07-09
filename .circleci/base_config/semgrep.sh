@@ -2,6 +2,7 @@
 echo 'export SEMGREP_APP_TOKEN=$SEMGREP_APP_TOKEN' >> $BASH_ENV
 echo 'export SEMGREP_COMMIT=$CIRCLE_SHA1' >> $BASH_ENV
 echo 'export SEMGREP_JOB_URL=$CIRCLE_BUILD_URL' >> $BASH_ENV
+echo "Service parameter value is << parameters.service >>"
 PR_NUMBER=$(echo "$CIRCLE_PULL_REQUEST" | awk -F '/' '{print $NF}' )
 if [ -n "$PR_NUMBER" ]; then 
     echo 'export SEMGREP_BASELINE_REF = "origin/<< pipeline.parameters.master_branch >>"' >> $BASH_ENV

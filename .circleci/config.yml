@@ -19,10 +19,9 @@ jobs:
           name: Set script permissions
           command: chmod +x .circleci/base_config/semgrep.sh
       - run:
-          name: Print Service Parameter
-          command: echo "Service parameter value is << parameters.service >>"
           name: "Semgrep scan"
           command: |
+              echo "Service parameter value is << parameters.service >>"
               .circleci/base_config/semgrep.sh
 workflows:
   version: 2

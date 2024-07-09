@@ -20,7 +20,6 @@ jobs:
       - run:
           name: "Semgrep scan"
           command: |
-              echo "Service parameter value is << parameters.service >>. From Config"
               export SERVICE_PARAM=<< parameters.service >>
               .circleci/base_config/semgrep.sh
 

@@ -2,10 +2,7 @@
 echo 'export SEMGREP_APP_TOKEN=$SEMGREP_APP_TOKEN' >> $BASH_ENV
 echo 'export SEMGREP_COMMIT=$CIRCLE_SHA1' >> $BASH_ENV
 echo 'export SEMGREP_JOB_URL=$CIRCLE_BUILD_URL' >> $BASH_ENV
-echo "Service parameter value is << parameters.service >>"
-echo "Service parameter value is << pipeline.parameters.service >>"
 echo "Service parameter value is $SERVICE_PARAM"
-echo "origin/<< pipeline.parameters.master_branch >>"
 
 PR_NUMBER=$(echo "$CIRCLE_PULL_REQUEST" | awk -F '/' '{print $NF}' )
 if [ -n "$PR_NUMBER" ]; then 
@@ -16,8 +13,8 @@ if [ -n "$PR_NUMBER" ]; then
     semgrep ci --baseline-commit=$(git merge-base development HEAD)
 else
     if [ "$CIRCLE_BRANCH" == "development" ]; then
-        echo "Running Full scan for branch: $CIRCLE_BRANCH"
-        semgrep ci || true
+        echo "Running Full scan for branch: $CIRCLE_BRANCH and service: $SERVICE_PARAM"
+        semgrep ci --include=$SERVICE_PARAM/** || true
     else
         echo "Skipping full scan for branches different to development."
     fi

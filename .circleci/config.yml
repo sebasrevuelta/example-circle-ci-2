@@ -1,15 +1,26 @@
 
 version: 2
+
+parameters:
+  service:
+    type: string
+    default: "A"
+
 jobs:
   semgrep-scan:
+    parameters:
+      service:
+        type: string
     docker:
-      - image: returntocorp/semgrep
+      - image: semgrep/semgrep
     steps:
       - checkout
       - run:
           name: Set script permissions
           command: chmod +x .circleci/base_config/semgrep.sh
       - run:
+          name: Print Service Parameter
+          command: echo "Service parameter value is << parameters.service >>"
           name: "Semgrep scan"
           command: |
               .circleci/base_config/semgrep.sh
@@ -18,7 +29,7 @@ workflows:
   semgrep:
     jobs:
       - semgrep-scan:
-          service: "A"
+          service: "<< pipeline.parameters.service >>"
           context:
             - semgrep
 

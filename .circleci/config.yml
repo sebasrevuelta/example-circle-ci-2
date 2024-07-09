@@ -28,6 +28,6 @@ workflows:
     jobs:
       - semgrep-scan:
           name: semgrep-scan
-          service: "<< pipeline.parameters.service >>"
+          service: "B"
           context:
             - semgrep

@@ -2,4 +2,7 @@ parameters:
   master_branch:
     type: string
     default: 'development'
- 
+
+  service:
+    type: string
+    default: "A"

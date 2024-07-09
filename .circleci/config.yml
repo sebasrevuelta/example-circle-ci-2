@@ -15,7 +15,6 @@ jobs:
       - run:
           name: "Semgrep scan"
           command: |
-              echo "Service parameter value is << parameters.service >>"
               .circleci/base_config/semgrep.sh
 
 workflows:

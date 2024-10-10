@@ -4,14 +4,14 @@ using System.Net;
 public class ExampleB
 {
     private IPAddress hardcodedIpAddress;
-    public const string MyIPAddress = "123.168.97.59";
+    public const string MyIPAddress = "123.168.97.58";
 
     public IPAddressExample()
     {
         string myIP = "123.168.97.54";
 
         //ok: avoid_ip_address_in_the_code
-        hardcodedIpAddress = IPAddress.Parse("192.168.4.1"); 
+        hardcodedIpAddress = IPAddress.Parse("192.168.8.1"); 
 
         print("Sebas")
         print("---")

@@ -40,6 +40,19 @@ if [ -n "$PR_NUMBER" ]; then
         if [ "$common_directory" = "." ]; then
             semgrep ci --baseline-commit=$(git merge-base development HEAD) --max-memory 3700 -j 5 || true
         else
+            # Loop until the root directory is reached
+            while [ "$common_directory" != "/" ]; do
+                echo "Searching in $common_directory..."
+            
+                # Check for files matching the patterns
+                if find "$common_directory" -type f \( -name '*-lock.yaml' -o -name '*-lock.json' \) | grep -q .; then
+                    echo "A file matching *-lock.yaml or *-lock.json was found in $common_directory."
+                    break
+                fi
+            
+                # Move up to the parent directory
+                common_directory=$(dirname "$common_directory")
+            done
             semgrep ci --baseline-commit=$(git merge-base development HEAD) --max-memory 3700 -j 5 --subdir=$common_directory || true
         fi
     fi

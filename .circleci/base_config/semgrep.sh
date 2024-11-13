@@ -42,12 +42,4 @@ if [ -n "$PR_NUMBER" ]; then
             semgrep ci --baseline-commit=$(git merge-base development HEAD) --max-memory 3700 -j 5 --subdir=$common_directory || true
         fi
     fi
-
-else
-    if [ "$CIRCLE_BRANCH" == "development" ]; then
-        echo "Running Full scan for branch: $CIRCLE_BRANCH"
-        semgrep ci --max-memory 3700 -j 5 || true
-    else
-        echo "Skipping full scan for branches different to development."
-    fi
 fi

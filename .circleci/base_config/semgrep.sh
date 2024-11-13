@@ -29,6 +29,7 @@ if [ -n "$PR_NUMBER" ]; then
                 # If we reach the root directory, return "."
                 if [ "$common_prefix" = "." ] || [ "$common_prefix" = "/" ]; then
                     echo "Common directory: ."
+                    break
                 fi
             done
         done

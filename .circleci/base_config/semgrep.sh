@@ -8,7 +8,20 @@ if [ -n "$PR_NUMBER" ]; then
     echo "Pull Request Number: $PR_NUMBER"
     echo 'export SEMGREP_PR_ID=$PR_NUMBER' >> $BASH_ENV
     git fetch origin "+refs/heads/*:refs/remotes/origin/*"
-    semgrep ci --baseline-commit=$(git merge-base development HEAD) --max-memory 3700 -j 5 || true
+
+    ## Get the subfolders to scan
+    echo "Fetching list of changed files..."
+    changed_files=$(git diff --name-only FETCH_HEAD)
+    echo "Changed files:"
+    echo "$changed_files"
+    common_directory = "."
+    # Check if there are any files
+    if [ -z "$changed_files" ]; then
+        common_directory = "."
+        echo "Common directory: $common_directory"
+    fi
+
+    semgrep ci --baseline-commit=$(git merge-base development HEAD) --max-memory 3700 -j 5 --include="$common_directory" || true
 else
     if [ "$CIRCLE_BRANCH" == "development" ]; then
         echo "Running Full scan for branch: $CIRCLE_BRANCH"

@@ -10,41 +10,39 @@ if [ -n "$PR_NUMBER" ]; then
     git fetch origin "+refs/heads/*:refs/remotes/origin/*"
 
     ## Get the subfolders to scan
-    echo "Fetching list of changed files..."
+        
+    # Fetch the changed files from the last commit
     changed_files=$(git diff --name-only FETCH_HEAD)
-    echo "Changed files:"
     echo "$changed_files"
-    common_prefix="."
+
     # Check if there are any files
     if [ -z "$changed_files" ]; then
-        echo "No changes."
-    else
-        echo "There are changes."
-    fi
-    # Initialize the common prefix with the first file's directory
-    common_prefix=$(dirname "$(echo "$changed_files" | head -n 1)")
-
-    # Iterate through the changed files to find the common prefix
-    for file in $changed_files; do
-        echo "file: $file"
-        while [[ "$file" != "$common_prefix"* ]]; do
-            common_prefix=$(dirname "$common_prefix")
-            echo "common_prefix: $common_prefix"
-            # If we reach the root directory, return "."
-            if [[ "$common_prefix" == "." || "$common_prefix" == "/" ]]; then
-                echo "Common directory: ."
-            fi
+        echo "No changes"
+    else 
+        # Initialize the common prefix with the first file's directory
+        common_prefix=$(dirname "$(echo "$changed_files" | head -n 1)")
+    
+        # Iterate through the changed files to find the common prefix
+        for file in $changed_files; do
+            while [ "${file#"$common_prefix"}" = "$file" ]; do
+                common_prefix=$(dirname "$common_prefix")
+                # If we reach the root directory, return "."
+                if [ "$common_prefix" = "." ] || [ "$common_prefix" = "/" ]; then
+                    echo "Common directory: ."
+                fi
+            done
         done
-    done
-
-    # Print and export the final common directory
-    common_directory=$common_prefix
-    echo "Common directory: $common_directory"
-    if [ "$common_directory" = "." ]; then
-        semgrep ci --baseline-commit=$(git merge-base development HEAD) --max-memory 3700 -j 5 || true
-    else
-        semgrep ci --baseline-commit=$(git merge-base development HEAD) --max-memory 3700 -j 5 --include=$common_directory/* || true
+        # Print and export the final common directory
+        common_directory=$common_prefix
+        echo "Common directory: $common_directory"
+        if [ "$common_directory" = "." ]; then
+            semgrep ci --baseline-commit=$(git merge-base development HEAD) --max-memory 3700 -j 5 || true
+        else
+            semgrep ci --baseline-commit=$(git merge-base development HEAD) --max-memory 3700 -j 5 --include=$common_directory/* || true
+        fi
     fi
+
+
 else
     if [ "$CIRCLE_BRANCH" == "development" ]; then
         echo "Running Full scan for branch: $CIRCLE_BRANCH"

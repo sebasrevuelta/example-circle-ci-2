@@ -1,0 +1,10 @@
+com.hotstar:chitragupt:jar:0.0.157-SNAPSHOT
++- org.springframework.boot:spring-boot-starter-web:jar:1.5.3.RELEASE:compile
+|  +- org.springframework.boot:spring-boot-starter:jar:1.5.3.RELEASE:compile
+|  |  +- org.springframework.boot:spring-boot:jar:1.5.3.RELEASE:compile
+|  |  +- org.springframework.boot:spring-boot-autoconfigure:jar:1.5.3.RELEASE:compile
+|  |  +- org.springframework.boot:spring-boot-starter-logging:jar:1.5.3.RELEASE:compile
+|  |  |  +- org.slf4j:jcl-over-slf4j:jar:1.7.25:compile
+|  |  |  +- org.slf4j:jul-to-slf4j:jar:1.7.25:compile
+|  |  |  \- org.slf4j:log4j-over-slf4j:jar:1.7.25:compile
+|  |  \- org.yaml:snakeyaml:jar:1.17:runtime

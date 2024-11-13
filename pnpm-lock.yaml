@@ -1,0 +1,21 @@
+lockfileVersion: 6.0
+
+settings:
+  autoInstallPeers: false
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .: {}
+
+  A/namespaces:
+    dependencies:
+      moment:
+        specifier: 2.24.0
+        version: 2.24.0
+
+packages:
+
+  /moment@2.24.0:
+    resolution: {integrity: sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==}
+    dev: false

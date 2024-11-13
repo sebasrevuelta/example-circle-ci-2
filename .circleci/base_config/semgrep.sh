@@ -44,7 +44,7 @@ if [ -n "$PR_NUMBER" ]; then
     # Print and export the final common directory
     common_directory=$common_prefix
     echo "Common directory: $common_directory"
-    semgrep ci --baseline-commit=$(git merge-base development HEAD) --max-memory 3700 -j 5 --include="$common_directory"/* || true
+    semgrep ci --baseline-commit=$(git merge-base development HEAD) --max-memory 3700 -j 5 --include=$common_directory/* || true
 else
     if [ "$CIRCLE_BRANCH" == "development" ]; then
         echo "Running Full scan for branch: $CIRCLE_BRANCH"

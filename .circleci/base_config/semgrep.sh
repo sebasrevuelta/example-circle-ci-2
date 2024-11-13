@@ -26,8 +26,10 @@ if [ -n "$PR_NUMBER" ]; then
 
     # Iterate through the changed files to find the common prefix
     for file in $changed_files; do
+        echo "file: $file"
         while [[ "$file" != "$common_prefix"* ]]; do
             common_prefix=$(dirname "$common_prefix")
+            echo "common_prefix: $common_prefix"
             # If we reach the root directory, return "."
             if [[ "$common_prefix" == "." || "$common_prefix" == "/" ]]; then
                 echo "Common directory: ."

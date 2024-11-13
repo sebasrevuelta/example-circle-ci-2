@@ -39,7 +39,7 @@ if [ -n "$PR_NUMBER" ]; then
         if [ "$common_directory" = "." ]; then
             semgrep ci --baseline-commit=$(git merge-base development HEAD) --max-memory 3700 -j 5 || true
         else
-            semgrep ci --baseline-commit=$(git merge-base development HEAD) --max-memory 3700 -j 5 --include='$common_directory' || true
+            semgrep ci --baseline-commit=$(git merge-base development HEAD) --max-memory 3700 -j 5 --subdir=$common_directory || true
         fi
     fi
 

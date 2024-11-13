@@ -14,31 +14,31 @@ if [ -n "$PR_NUMBER" ]; then
     changed_files=$(git diff --name-only FETCH_HEAD)
     echo "Changed files:"
     echo "$changed_files"
-    echo 'export common_directory=.' >> $BASH_ENV
+    echo 'export $common_prefix=.' >> $BASH_ENV
     # Check if there are any files
     if [ -z "$changed_files" ]; then
         echo "No changes"
     fi
     # Convert the list into an array
-    files=($changed_files)
+    #files=($changed_files)
     # If there is only one file, return its parent directory
-    if [ ${#files[@]} -eq 1 ]; then
-        parent_dir=$(dirname "${files[0]}")
-        echo "Common directory: $parent_dir"
-        echo 'export common_directory=$parent_dir' >> $BASH_ENV
-    fi
+    #if [ ${#files[@]} -eq 1 ]; then
+    #    parent_dir=$(dirname "${files[0]}")
+    #    echo "Common directory: $parent_dir"
+    #    echo 'export common_directory=$parent_dir' >> $BASH_ENV
+    #fi
     # Find the common parent directory
-    common_prefix="${files[0]}"
-    for file in "${files[@]:1}"; do
-        while [[ $file != $common_prefix* ]]; do
-            common_prefix=$(dirname "$common_prefix")
+    #common_prefix="${files[0]}"
+    #for file in "${files[@]:1}"; do
+    #    while [[ $file != $common_prefix* ]]; do
+    #        common_prefix=$(dirname "$common_prefix")
             # If we reach the root directory, return "."
-            if [[ "$common_prefix" == "." || "$common_prefix" == "/" ]]; then
-                echo "Common directory: ."
-                echo 'export common_directory=.' >> $BASH_ENV
-            fi
-        done
-    done
+    #        if [[ "$common_prefix" == "." || "$common_prefix" == "/" ]]; then
+    #            echo "Common directory: ."
+    #            echo 'export common_directory=.' >> $BASH_ENV
+    #        fi
+    #    done
+    #done
     # Print and export the final common directory
     echo 'export common_directory=$common_prefix' >> $BASH_ENV
     echo "Common directory: $common_directory"

@@ -22,7 +22,7 @@ if [ -n "$PR_NUMBER" ]; then
         echo "There are changes"
     fi
     # Convert the list into an array
-    files=("$changed_files")
+    readarray -t files <<< "$changed_files"
     # If there is only one file, return its parent directory
     #if [ ${#files[@]} -eq 1 ]; then
     #    parent_dir=$(dirname "${files[0]}")

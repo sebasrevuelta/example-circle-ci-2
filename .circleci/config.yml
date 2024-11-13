@@ -5,6 +5,10 @@ import:
     
 jobs:
   semgrep-scan:
+    parameters:
+      default_branch:
+        type: string
+        default: development  
     docker:
       - image: semgrep/semgrep
     steps:

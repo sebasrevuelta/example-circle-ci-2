@@ -53,6 +53,7 @@ if [ -n "$PR_NUMBER" ]; then
                 # Move up to the parent directory
                 common_directory=$(dirname "$common_directory")
             done
+            echo "Directory to scan: $common_directory"
             semgrep ci --baseline-commit=$(git merge-base development HEAD) --max-memory 3700 -j 5 --subdir=$common_directory || true
         fi
     fi

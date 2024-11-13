@@ -21,11 +21,8 @@ if [ -n "$PR_NUMBER" ]; then
     else
         echo "There are changes"
     fi
-    # Convert the list into an array
-    files=()
-    while IFS= read -r line; do
-        files+=("$line")
-    done <<< "$changed_files"
+    # Initialize the common prefix with the first file's directory
+    common_prefix=$(dirname "$(echo "$changed_files" | head -n 1)")
 
     
     # If there is only one file, return its parent directory

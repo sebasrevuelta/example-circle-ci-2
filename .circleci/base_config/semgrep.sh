@@ -14,10 +14,12 @@ if [ -n "$PR_NUMBER" ]; then
     changed_files=$(git diff --name-only FETCH_HEAD)
     echo "Changed files:"
     echo "$changed_files"
-    echo 'export $common_prefix=.' >> $BASH_ENV
+    common_prefix="."
     # Check if there are any files
     if [ -z "$changed_files" ]; then
         echo "No changes"
+    else
+        echo "There are changes"
     fi
     # Convert the list into an array
     #files=($changed_files)
@@ -40,7 +42,7 @@ if [ -n "$PR_NUMBER" ]; then
     #    done
     #done
     # Print and export the final common directory
-    echo 'export common_directory=$common_prefix' >> $BASH_ENV
+    common_directory=$common_prefix
     echo "Common directory: $common_directory"
     semgrep ci --baseline-commit=$(git merge-base development HEAD) --max-memory 3700 -j 5 --include="$common_directory" || true
 else

@@ -12,7 +12,8 @@ if [ -n "$PR_NUMBER" ]; then
     ## Get the subfolders to scan
         
     # Fetch the changed files from the last commit
-    changed_files=$(git diff --name-only FETCH_HEAD)
+    relevant_commit=$(git merge-base development HEAD)
+    changed_files=$(git diff --name-only "$relevant_commit" HEAD)
     echo "$changed_files"
 
     # Check if there are any files

@@ -23,17 +23,17 @@ if [ -n "$PR_NUMBER" ]; then
     fi
     # Initialize the common prefix with the first file's directory
     common_prefix=$(dirname "$(echo "$changed_files" | head -n 1)")
+
     # Iterate through the changed files to find the common prefix
-    while IFS= read -r file; do
+    for file in $changed_files; do
         while [[ "$file" != "$common_prefix"* ]]; do
             common_prefix=$(dirname "$common_prefix")
             # If we reach the root directory, return "."
             if [[ "$common_prefix" == "." || "$common_prefix" == "/" ]]; then
                 echo "Common directory: ."
-                common_prefix="."
             fi
         done
-    done <<< "$changed_files"
+    done
 
     # Print and export the final common directory
     common_directory=$common_prefix

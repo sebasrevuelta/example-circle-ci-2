@@ -4,7 +4,7 @@ using System.Net;
 public class ExampleB
 {
     private IPAddress hardcodedIpAddress;
-    public const string MyIPAddress = "123.168.97.59";
+    public const string MyIPAddress = "123.168.97.58";
 
     public IPAddressExample()
     {
